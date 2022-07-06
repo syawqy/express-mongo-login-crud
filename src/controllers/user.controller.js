@@ -24,8 +24,11 @@ exports.login = async (req, res) => {
 
 exports.getAll = async (req, res) => {
     try {
-        const foundUser = await UserModel.find();
-
+        let foundUser = await UserModel.find();
+        if (req.user.role == 'user') {
+            foundUser = foundUser.find((a) => a.id == req.user.id);
+        }
+        
         if(!foundUser || foundUser.length == 0) {
             res.status(404).json({message: "User not found!"});
         } else {
@@ -77,7 +80,6 @@ exports.update = async (req, res) => {
         const foundUser = await UserModel.findOne({ _id: id });
     
         if(foundUser || foundUser.length == 0) {
-            //const response = await foundUser.updateOne({ _id: id });
             Object.assign(foundUser, req.body);
             await foundUser.save();
             res.status(301).json(foundUser);
