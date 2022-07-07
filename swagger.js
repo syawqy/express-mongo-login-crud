@@ -7,6 +7,7 @@ const doc = {
   },
   host: 'localhost:3000',
   schemes: ['http'],
+  security: [ { bearerAuth: [] } ],
   securityDefinitions: {
     bearerAuth: {
       type: "apiKey",
