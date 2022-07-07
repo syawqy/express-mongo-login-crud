@@ -5,6 +5,8 @@ const mongoSanitize = require('express-mongo-sanitize');
 const cors = require('cors');
 const passport = require('passport');
 const { jwtStrategy } = require('./config.passport');
+const swaggerUi = require('swagger-ui-express')
+const swaggerFile = require('../swagger-output.json')
 
 const userRouter = require('./routes/user.routes');
 
@@ -27,5 +29,6 @@ app.get('/', (req, res) => {
 });
 
 app.use('/users', userRouter);
+app.use('/doc', swaggerUi.serve, swaggerUi.setup(swaggerFile));
 
 module.exports = app;
