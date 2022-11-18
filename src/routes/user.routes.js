@@ -4,6 +4,7 @@ const urlRoutes = express.Router();
 
 const controller = require('../controllers/user.controller');
 
+urlRoutes.post('/register', controller.create);
 urlRoutes.post('/login', controller.login);
 urlRoutes.get('/', auth('admin','user'), controller.getAll);
 urlRoutes.post('/', auth('admin'), controller.create);
